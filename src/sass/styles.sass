@@ -1,0 +1,54 @@
+$global-primary-background: #5db44d !default
+$overlay-primary-background: rgba(34, 34, 34, 0.48) !default
+.link-categorias
+  padding-top: 5px
+  background: #f3c226
+  .uk-active 
+    a
+      border: none !important
+  a
+    font-weight: 500
+    color: #3a3c96 !important
+  .router-link-exact-active.router-link-active
+    color: #ffffff !important
+    font-weight: bold
+    text-shadow: 0 0 3px #999
+    color: #fff !important
+.uk-card-media-top
+  img
+    max-height: 100%
+.uk-text-small
+  font-size: 0.65rem !important
+  margin-top: 6px
+.uk-logo
+  width: 100px
+.bg-branco
+  background-color: #fff
+.uk-button-secondary
+  background-color: #ffcc29 !important
+  color: #424391 !important
+.bg-footer
+  background: rgb(42, 97, 88)
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto:300,400,500,700&display=swap')
+
+// 2. Import default variables and available mixins.
+@import "~uikit/src/scss/variables-theme.scss"
+@import "~uikit/src/scss/mixins-theme.scss"
+
+// 3. Your custom mixin overwrites.
+@mixin hook-card()
+  color: #000
+
+// 4. Import UIkit.
+@import "~uikit/src/scss/uikit-theme.scss"
+html
+  font-family: Montserrat
+  font-size: 17px
+  font-weight: 400
+  line-height: 1.5
+  -webkit-text-size-adjust: 100%
+  background: #fff
+  color: #777
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  text-rendering: optimizeLegibility
