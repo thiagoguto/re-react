@@ -39,7 +39,7 @@ const Depoimentos = data => {
                     <h3 className="uk-card-title uk-margin-remove">
                       {item.title}
                     </h3>
-                    <h4 className="uk-margin-remove">{item.prof}</h4>
+                    <h4 className="uk-margin-remove">{item.img.alt}</h4>
                   </div>
                 </div>
               </div>

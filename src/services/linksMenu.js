@@ -1,3 +1,15 @@
+export const MenuTopoAdmin = [
+  
+  {
+    id: "menutopo-01",
+    title: "Categorias",
+    link: "/app",
+    icone: "",
+    class: "uk-button  uk-button-small uk-margin-right",
+    admin: false
+  }
+];
+
 export const MenuTopo = [
   {
     id: "menutopo-01",

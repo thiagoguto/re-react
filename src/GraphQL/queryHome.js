@@ -50,20 +50,64 @@ const QueryHome = gql`
         }
       }
     }
+    rede: taxonomyTermQuery(
+      sort: { field: "name", direction: ASC }
+      filter: {
+        groups: {
+          conditions: [
+            {
+              field: "name"
+              value: ["Cursos", "Farmácias", "Cultura & Lazer", "Restaurante"]
+            }
+          ]
+        }
+      }
+    ) {
+      dados: entities {
+        name: entityLabel
+        id: entityUuid
+        ... on TaxonomyTermRedeDeParceiros {
+          item: reverseFieldCategoriaNode(limit: 12) {
+            dados: entities {
+              ... on NodeParceiros {
+                title
+                id: uuid
+                img: fieldCapa {
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     depoimentos: nodeQuery(
       filter: { conditions: [{ field: "type", value: "page" }] }
     ) {
       dados: entities {
         ... on NodePage {
           title
-          prof: fieldProf
           body {
             value
           }
           img: fieldAvatar {
             url
+            alt
           }
           id: uuid
+        }
+      }
+    }
+    calculadora: nodeQuery(
+      sort: { field: "created", direction: ASC }
+      filter: { conditions: [{ field: "type", value: "simulador" }] }
+    ) {
+      dados: entities {
+        ... on NodeSimulador {
+          title
+          id: uuid
+          convenio: fieldConvenio
+          particular: fieldParticular
         }
       }
     }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import API from "../services/api";
 
-class Login extends Component {
+class RecuperarSenha extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,47 +13,47 @@ class Login extends Component {
     };
     this.userBind = this.userBind.bind(this);
     this.passBind = this.passBind.bind(this);
-    this.makeLogin = this.makeLogin.bind(this);
+    this.makeRequestPass = this.makeRequestPass.bind(this);
   }
-  dataLogin = () => {
+  requestPass = () => {
     return {
       method: "POST",
-      body: JSON.stringify({ name: this.state.user, pass: this.state.pass }),
+      body: JSON.stringify({ name: this.state.user }),
       headers: new Headers({
-        "Content-type": "Application/json",
-        "Access-Control-Allow-Origin": "*/*"
+        "Content-type": "Application/json"
       })
     };
   };
   
-  makeLogin() {
-    if (this.state.user !== "" && this.state.pass !== "") {
-      fetch(API.login, this.dataLogin())
+  makeRequestPass() {
+    if (this.state.user !== "") {
+      fetch(API.requestPass, this.requestPass())
         .then(resposta => {
-          if (resposta.ok) {
-            this.setState({ msgError: "logado", msgCor: "success" });
-            
-            return resposta.json();
+          if(resposta.ok){
+            this.setState({
+              msgError: "Instruções foram enviadas para o seu endereço de e-mail.",
+              msgCor: "success"
+            })
           } else {
             if (resposta.status === 500) {
-              throw new Error("Email ou senha inválidos");
+              throw new Error("Email não cadastrado");
             }
             if (resposta.status === 400) {
-              throw new Error("Email ou senha inválidos");
+              throw new Error("Email não cadastrado");
             }
           }
         })
-        .then(res => {
-          sessionStorage.setItem("userID", parseInt(res.current_user.uid));
-          sessionStorage.setItem("token", res.csrf_token);
-          this.criaUsuarioLocal();
-          if (sessionStorage.getItem("token") === true) {
-            this.authenticated = true;
-          } else {
-            this.authenticated = false;
-          }
-          this.props.history.push("/app");
-        })
+        // .then(res => {
+        //   sessionStorage.setItem("userID", parseInt(res.current_user.uid));
+        //   sessionStorage.setItem("token", res.csrf_token);
+        //   this.criaUsuarioLocal();
+        //   if (sessionStorage.getItem("token") === true) {
+        //     this.authenticated = true;
+        //   } else {
+        //     this.authenticated = false;
+        //   }
+        //   this.props.history.push("/app");
+        // })
         .catch(({ message, response }) => {
           this.setState({ msgError: message, msgCor: "warning" });
           console.log(message, response);
@@ -98,10 +98,6 @@ class Login extends Component {
                     className="uk-logo"
                   />
                 </Link>
-                <h2>
-                  Entrar
-                  <span className="icon icon-colab-new-tab" />
-                </h2>
               </div>
             </div>
           </div>
@@ -127,7 +123,7 @@ class Login extends Component {
               </div>
               <form>
                 <fieldset className="uk-fieldset">
-                  <legend>Digite seus dados para entrar</legend>
+                  <legend>Digite seu endereço email</legend>
 
                   <div className="uk-margin">
                     <div className="uk-inline uk-width-1-1">
@@ -141,42 +137,18 @@ class Login extends Component {
                       />
                     </div>
                   </div>
-                  <div className="uk-margin">
-                    <div className="uk-inline uk-width-1-1">
-                      <span className="uk-form-icon" uk-icon="icon: lock" />
-                      <input
-                        className="uk-input"
-                        value={this.state.pass}
-                        onChange={this.passBind}
-                        type="password"
-                        placeholder="Senha"
-                      />
-                    </div>
-                  </div>
-                  <div className="uk-margin">
+                  
+                  <div className="uk-margin uk-flex uk-flex-between">
                     <button
-                      disabled={!this.state.user || this.state.pass.length <= 5}
+                      disabled={!this.state.user}
                       type="button"
-                      onClick={this.makeLogin}
+                      onClick={this.makeRequestPass}
                       className="uk-button uk-button-primary uk-width-1-1"
                     >
-                      Entrar
+                      Recuperar Senha
                     </button>
-                    <div className="uk-width-1-1 uk-text-center uk-margin-top">
-                    <Link to="/recuperar-senha"className="uk-text-link" >Recuperar Senha</Link>
-                    </div>
                   </div>
                 </fieldset>
-                <hr className="uk-divider-icon" />
-                <div className="uk-text-center">
-                  <p>Ainda não tem uma conta?</p>
-                  <Link
-                    to="/registrar"
-                    className="uk-button uk-button-small uk-button-secondary"
-                  >
-                    Criar conta
-                  </Link>
-                </div>
               </form>
             </div>
           </div>
@@ -186,4 +158,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default RecuperarSenha;

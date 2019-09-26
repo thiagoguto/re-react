@@ -1,0 +1,47 @@
+{
+  "type": true,
+  "paymentBillInternalId": 79,
+  "message": "Contrato/Venda cadastrado com sucesso.",
+  "paymentBill": [
+    {
+      "internalId": "79",
+      "integrationId": "re-cli-24244994386",
+      "periodicity": "monthly",
+      "quantity": "indeterminated",
+      "dateFirst": "2019-09-15",
+      "status": "active",
+      "statusDescription": "Ativa",
+      "additionalInfo": null,
+      "value": "26.00",
+      "customerInternalId": "8",
+      "customerIntegrationId": "re-pag-24244994386",
+      "customerName": "Jose da silva",
+      "operator": "boletoGalaxPay",
+      "operatorName": "Boleto",
+      "transactions": [
+        {
+          "internalId": "159",
+          "integrationId": null,
+          "payday": "2019-09-15",
+          "installmentNumber": "1",
+          "tid": null,
+          "additionalInfo": null,
+          "customerInternalId": "8",
+          "customerIntegrationId": "re-pag-24244994386",
+          "link": "https://app.galaxpay.com.br/landing805/cobranca/79/cartao",
+          "paymentBillInternalId": "79",
+          "paymentBillIntegrationId": "re-cli-24244994386",
+          "paymentBillAdditionalInfo": null,
+          "value": "26.00",
+          "lastUpdateDate": "2019-09-13 14:41:27",
+          "status": "pendingBoleto",
+          "statusDescription": "Em aberto",
+          "isBoleto": true,
+          "boleto": "https://app.galaxpay.com.br/landing805/boleto/X7EFC72UB9L25YI5CLSBHD7NX",
+          "boletoBankLine": null,
+          "boletoBankNumber": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import ApolloClient, { InMemoryCache } from "apollo-boost";
 
 const ClientApollo = new ApolloClient({
-  uri: "http://apirdb.dd:8083/graphql",
+  uri: "https://api.rebeneficios.ml/graphql",
   cache: new InMemoryCache()
 });
 

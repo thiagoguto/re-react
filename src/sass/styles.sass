@@ -20,6 +20,10 @@ $overlay-primary-background: rgba(34, 34, 34, 0.48) !default
 .uk-text-small
   font-size: 0.65rem !important
   margin-top: 6px
+.uk-tab 
+  .uk-active 
+    a
+      border-bottom: 7px solid
 .uk-logo
   width: 100px
 .bg-branco
@@ -38,7 +42,8 @@ $overlay-primary-background: rgba(34, 34, 34, 0.48) !default
 // 3. Your custom mixin overwrites.
 @mixin hook-card()
   color: #000
-
+.img-boleto
+  width: 180px
 // 4. Import UIkit.
 @import "~uikit/src/scss/uikit-theme.scss"
 html

@@ -12,7 +12,7 @@ class FooterLinks extends Component {
   }
   render() {
     return (
-      <div className="uk-container">
+      <div className="uk-container" id="contato">
         <div className="uk-section">
           <div uk-grid="" className="uk-grid">
             <div className="uk-width-1-3 uk-first-column">
