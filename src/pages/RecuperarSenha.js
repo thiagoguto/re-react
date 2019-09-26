@@ -20,7 +20,9 @@ class RecuperarSenha extends Component {
       method: "POST",
       body: JSON.stringify({ name: this.state.user }),
       headers: new Headers({
-        "Content-type": "Application/json"
+        "Access-control-allow-origin": "*",
+        "Content-Type":"application/json",
+        "Accept": "*/*",
       })
     };
   };

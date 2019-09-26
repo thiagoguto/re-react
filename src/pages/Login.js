@@ -20,9 +20,10 @@ class Login extends Component {
       method: "POST",
       body: JSON.stringify({ name: this.state.user, pass: this.state.pass }),
       headers: new Headers({
-        "Content-type": "Application/json",
-        "Access-Control-Allow-Origin": "*/*"
-      })
+        "Access-control-allow-origin": "*",
+        "Content-Type":"application/json",
+        "Accept": "*/*",
+            })
     };
   };
   
@@ -32,7 +33,6 @@ class Login extends Component {
         .then(resposta => {
           if (resposta.ok) {
             this.setState({ msgError: "logado", msgCor: "success" });
-            
             return resposta.json();
           } else {
             if (resposta.status === 500) {
