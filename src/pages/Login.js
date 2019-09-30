@@ -31,6 +31,7 @@ class Login extends Component {
     if (this.state.user !== "" && this.state.pass !== "") {
       fetch(API.login, this.dataLogin())
         .then(resposta => {
+          console.log("res", resposta)
           if (resposta.ok) {
             this.setState({ msgError: "logado", msgCor: "success" });
             return resposta.json();
@@ -53,6 +54,7 @@ class Login extends Component {
             this.authenticated = false;
           }
           this.props.history.push("/app");
+          console.log("res", res)
         })
         .catch(({ message, response }) => {
           this.setState({ msgError: message, msgCor: "warning" });

@@ -14,7 +14,7 @@ const Header = () => {
             <div className="uk-navbar-item">
               {
                 sessionStorage.getItem("token") ?
-              <Logo link="/app" /> :
+              <Logo link="/app/categoria/" /> :
               <Logo link="/" />
             }
             </div>

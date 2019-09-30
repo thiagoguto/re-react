@@ -8,6 +8,7 @@ import { Dashboard } from "../pages/private/dashboard";
 import Categorias from "../pages/private/categoriasPage";
 import Categoria from "../pages/private/categorias";
 import RecuperarSenha from "../pages/RecuperarSenha";
+import PageEmpresa from "../pages/private/PageEmpresa";
 
 // import { Container } from './styles';
 
@@ -20,8 +21,9 @@ export default class services extends Component {
         <Route path="/recuperar-senha" component={RecuperarSenha} />
         <Route path="/registrar" component={Register} />
         <Route path="/checkout/:id" render={props => <Checkout {...props} />} />
+        <Route path="/app/empresa/:id"  render={props => <PageEmpresa {...props} />}  />
         <Dashboard path="/app" exact component={Categorias} />
-        <Dashboard path="/app/:id" component={Categoria} />
+        <Dashboard path="/app/categoria/:id" component={Categoria} />
       </Router>
     );
   }

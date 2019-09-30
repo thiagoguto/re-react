@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 const RedeItemEstaticoAllya = ({ data }) => (
   <div className="item">
-    <Link to="" className="uk-link-reset">
+    <Link to={`/app/empresa/${data._id}`} className="uk-link-reset">
     <div className="uk-card uk-card-default uk-height-1-1 uk-flex uk-flex-middle uk-flex-center">
       <div className="uk-card-media-top uk-text-center">
         {data.image.logo !== "https://s3.amazonaws.com/colaboradores-live/NoLogoAvailable.gif" ? 

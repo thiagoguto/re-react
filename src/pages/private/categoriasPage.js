@@ -12,31 +12,31 @@ class Categorias extends Component {
           id: 3,
           img: "farmacias.jpeg",
           titulo:"Farmácias",
-          url: "/app/farmacias"
+          url: "/app/categoria/farmacias"
         },
         {
           id: 4,
           img: "restaurantes.jpeg",
           titulo:"Restaurantes",
-          url: "/app/restaurantes"
+          url: "/app/categoria/restaurantes"
         },
         {
           id: 1,
           img: "cursos.jpeg",
           titulo:"Cursos",
-          url: "/app/cursos"
+          url: "/app/categoria/cursos"
         },
         {
           id: 2,
           img: "diversao.jpeg",
           titulo:"Diversão",
-          url: "/app/diversao"
+          url: "/app/categoria/diversao"
         },
         {
           id: 5,
           img: "online.jpeg",
           titulo:"Online",
-          url: "/app/online"
+          url: "/app/categoria/online"
         },
       ]
     }
