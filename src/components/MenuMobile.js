@@ -1,7 +1,7 @@
 import React from "react";
 
 const MenuMobile = () => {
-  return <h1>Pagina MenuMobile</h1>;
+  return <h1>s</h1>;
 };
 
 export default MenuMobile;

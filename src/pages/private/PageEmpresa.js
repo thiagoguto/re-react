@@ -13,7 +13,7 @@ class PageEmpresa extends React.Component {
   }
   carregaItem(){
     const id = this.props.match.params.id;
-    fetch(`https://backend.allya.com.br/api/Establishments/${id}`, {
+    fetch(`https://backend.allya.com.br/api/Establishments/${id}?filter={"include":{"relation":"addresses"}}`, {
       headers: {
         Authorization: localStorage.allya
       }
@@ -26,6 +26,8 @@ class PageEmpresa extends React.Component {
     const empresa = this.state.item;
     return <>
     <Header />
+    {console.log(this.props.match.params.id)}
+    {console.log(sessionStorage.getItem("userLocal"))}
     <div className="uk-cover-container uk-margin-bottom">
       <canvas width="400" height="200" />
       <img
@@ -35,36 +37,52 @@ class PageEmpresa extends React.Component {
       
       <div className="uk-overlay-primary uk-position-cover" />
       <div className="title-section uk-position-cover uk-flex uk-flex-middle uk-margin-bottom">
-        <div className="uk-container uk-width-1-1">
-          
-          <h2 className="uk-light uk-text-center">
+        <div className="uk-container uk-width-1-1 uk-flex uk-flex-middle uk-margin-top">
+          <div className="uk-width-1-5">
+            <div className="uk-padding">
+
+           <img src={ empresa.image !== undefined ? empresa.image.logo : '' } alt="" />
+            </div>
+          </div>
+          <div className="uk-width-auto">
+          <h2 className="uk-light uk-text-center uk-margin-remove">
             { empresa.name }
             <span className="icon icon-colab-new-tab" />
           </h2>
+          </div>
         </div>
       </div>
     </div>
     <div className="uk-container uk-flex uk-flex-center">
         <div
-          className="uk-card uk-card-default uk-card-body uk-width-1-1@xs  uk-width-1-1 uk-margin-large-bottom"
-          style={{ marginTop: -70 }}
+          className="uk-width-1-1@xs  uk-width-1-1 uk-margin-large-bottom"
+          
           >
             <div className="uk-container">
 
-          <div className="uk-grid-divider" uk-grid="">
+          <div className="uk-grid-small" uk-grid="">
             <div className="uk-width-2-3" >
-            <div key={empresa.id}>
-              <div className="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" >
-              <div className="uk-overlay uk-overlay-primary uk-position-cover">
-              <div className="uk-position-center">
-                  <h3 className="uk-h2">{empresa.name}</h3>
-                  </div>
-                  </div>
+            <div>
+              <div className="uk-background-cover uk-panel uk-flex uk-flex-center uk-flex-middle uk-margin" uk-height-match="target: > div > img">
+                <div>
+                  <img className="uk-width-expand" src={ empresa.image !== undefined ? empresa.image.cover : '' } alt="" />
+                </div>
               </div> 
+              <div className="uk-text-center">
+                <h3 className="uk-h2">{empresa.name}</h3>
+              </div>
+              <h4 className="uk-text-bold"> Localização </h4>
+              { empresa.addresses ? empresa.addresses.map(res => <div key={res.id}><b>{res.nameUnit}</b> <br />{res.street}, {res.number} - {res.neighborhood}<br /> {res.county} - CEP: {res.cep}<hr className="uk-divider-small" /></div>) : ''}
+
             </div>
               </div> 
-              <div className="uk-width-2-3" >
-                sidebar
+              <div className="uk-width-1-3" >
+                <h4 className="uk-text-bold"> Oferta </h4>
+                <div className="uk-card uk-card-body uk-card-default uk-border-top">
+                  <h3>{empresa.offer !== undefined ? empresa.offer.title : ''}</h3>
+                  <hr className="uk-divider-small" />
+                  {empresa.offer !== undefined ? <div dangerouslySetInnerHTML={{ __html: empresa.offer.term }}></div> : ''}
+                </div>
               </div>
             </div>
 

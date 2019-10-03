@@ -27,7 +27,6 @@ const Header = () => {
               uk-toggle="target: #menu"
               className="uk-navbar-toggle uk-hidden@m uk-navbar-toggle-icon uk-icon"
             >
-              asd
             </a>
           </div>
         </nav>

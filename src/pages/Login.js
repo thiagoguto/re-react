@@ -15,6 +15,15 @@ class Login extends Component {
     this.passBind = this.passBind.bind(this);
     this.makeLogin = this.makeLogin.bind(this);
   }
+  
+  criaUsuarioLocal(id){
+    console.log("foi ativado", API.APIURL+'/user/'+id+'?_format=json')
+    fetch('https://api.rebeneficios.ml/user/'+id+'?_format=json')
+    .then(data => data.json())
+      .then(res=>{
+        sessionStorage.setItem('userLocal', JSON.stringify(res));
+        });
+  }
   dataLogin = () => {
     return {
       method: "POST",
@@ -47,7 +56,7 @@ class Login extends Component {
         .then(res => {
           sessionStorage.setItem("userID", parseInt(res.current_user.uid));
           sessionStorage.setItem("token", res.csrf_token);
-          this.criaUsuarioLocal();
+          this.criaUsuarioLocal(parseInt(res.current_user.uid));
           if (sessionStorage.getItem("token") === true) {
             this.authenticated = true;
           } else {
@@ -72,13 +81,7 @@ class Login extends Component {
       pass: event.target.value
     });
   }
-  criaUsuarioLocal(){
-    fetch(API.user)
-    .then(data => data.json())
-      .then(res=>{
-        sessionStorage.setItem('userLocal', JSON.stringify(res));
-        });
-  }
+  
   render() {
     return (
       <>

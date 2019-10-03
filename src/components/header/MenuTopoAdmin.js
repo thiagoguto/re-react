@@ -55,7 +55,7 @@ class MenuTopo extends Component {
                   </Link>
                     </div>
                     <div className="uk-margin-bottom">
-                  <Link to={item.link} uk-scroll="">
+                  <Link to={`/app/perfil/`} uk-scroll="">
                     <span uk-icon="icon: credit-card" className="uk-margin-small-right" />
                     Cartão Virtual
                   </Link>

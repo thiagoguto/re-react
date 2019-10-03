@@ -21,7 +21,6 @@ class Register extends Component {
         field_plano: {
           value: "1"
         },
-        endereco: {
           field_rua: {
             value: ""
           },
@@ -42,8 +41,7 @@ class Register extends Component {
           },
           field_estado: {
             value: ""
-          }
-        },
+          },
         name: {
           //email
           value: ""
@@ -80,10 +78,10 @@ class Register extends Component {
     var ano = data.getFullYear();
     var mes = data.getMonth();
     var dia = data.getDate();
-    if(mes <= 9 && dia <= 9){
-      return `${ano}-0${(mes+1)}-0${(dia+2)}`;
+    if(mes <= 8 && dia <= 9){
+      return `${ano}-0${(mes+1)}-${(dia+2)}`;
     } else if(dia <= 9){
-      return `${ano}-${(mes+1)}-0${(dia+2)}`;
+      return `${ano}-${(mes+1)}-${(dia+2)}`;
     } else if(mes <= 9){
       return `${ano}-0${(mes+1)}-${(dia+2)}`;
     }
@@ -93,44 +91,34 @@ class Register extends Component {
     this.setState({
       usuario: {
         ...this.state.usuario,
-        endereco: {
-          ...this.state.usuario.endereco,
           field_cep: {
             value: cep
           }
         }
-      }
     });
     if (cep !== "" && cep.length >= 8) {
       return fetch(`https://viacep.com.br/ws/${cep}/json`)
         .then(response => {
           if (response.ok) {
-            console.log("ok ", response);
             return response.json();
           }
         })
         .then(data => {
-          console.log(data);
           if (data.erro) {
             alert("CEP inválido");
             this.setState({
               usuario: {
                 ...this.state.usuario,
-                endereco: {
-                  ...this.state.usuario.endereco,
-                  field_cep: {
+                field_cep: {
                     value: ""
                   }
                 }
-              }
             });
           } else {
             this.setState({
               usuario: {
                 ...this.state.usuario,
-                endereco: {
-                  ...this.state.usuario.endereco,
-                  field_rua: {
+                field_rua: {
                     value: data.logradouro
                   },
                   field_bairro: {
@@ -143,7 +131,6 @@ class Register extends Component {
                     value: data.uf
                   }
                 }
-              }
             });
           }
         })
@@ -158,13 +145,10 @@ class Register extends Component {
     this.setState({
       usuario: {
         ...this.state.usuario,
-        endereco: {
-          ...this.state.usuario.endereco,
           field_rua: {
             value: rua
           }
         }
-      }
     });
   }
   bairroBind(event) {
@@ -172,12 +156,9 @@ class Register extends Component {
     this.setState({
       usuario: {
         ...this.state.usuario,
-        endereco: {
-          ...this.state.usuario.endereco,
           field_bairro: {
             value: bairro
           }
-        }
       }
     });
   }
@@ -186,13 +167,10 @@ class Register extends Component {
     this.setState({
       usuario: {
         ...this.state.usuario,
-        endereco: {
-          ...this.state.usuario.endereco,
           field_cidade: {
             value: cidade
           }
         }
-      }
     });
   }
   estadoBind(event) {
@@ -200,13 +178,10 @@ class Register extends Component {
     this.setState({
       usuario: {
         ...this.state.usuario,
-        endereco: {
-          ...this.state.usuario.endereco,
           field_estado: {
             value: estado
           }
         }
-      }
     });
   }
   complementoBind(event) {
@@ -214,13 +189,10 @@ class Register extends Component {
     this.setState({
       usuario: {
         ...this.state.usuario,
-        endereco: {
-          ...this.state.usuario.endereco,
           field_complemento: {
             value: complemento
           }
         }
-      }
     });
   }
   numeroBind(event) {
@@ -228,13 +200,10 @@ class Register extends Component {
     this.setState({
       usuario: {
         ...this.state.usuario,
-        endereco: {
-          ...this.state.usuario.endereco,
           field_numero: {
             value: numero
           }
         }
-      }
     });
   }
   cpfBind(event) {
@@ -244,9 +213,6 @@ class Register extends Component {
         ...this.state.usuario,
         field_cpf: {
           value: cpf
-        },
-        endereco: {
-          ...this.state.usuario.endereco
         }
       }
     });
@@ -258,9 +224,6 @@ class Register extends Component {
         ...this.state.usuario,
         field_nome: {
           value: nome
-        },
-        endereco: {
-          ...this.state.usuario.endereco
         }
       }
     });
@@ -273,8 +236,8 @@ class Register extends Component {
         mail: {
           value: mail
         },
-        endereco: {
-          ...this.state.usuario.endereco
+        name: {
+          value: mail
         }
       }
     });
@@ -286,9 +249,6 @@ class Register extends Component {
         ...this.state.usuario,
         field_telefone: {
           value: telefone
-        },
-        endereco: {
-          ...this.state.usuario.endereco
         }
       }
     });
@@ -300,32 +260,25 @@ class Register extends Component {
         ...this.state.usuario,
         pass: {
           value: pass
-        },
-        endereco: {
-          ...this.state.usuario.endereco
         }
       }
     });
   }
   confirmBind(event) {
-    let confirm = event.target.value;
     this.setState({
       usuario: {
-        ...this.state.usuario,
-        confirm: {
-          value: confirm
-        },
-        endereco: {
-          ...this.state.usuario.endereco
-        }
+        ...this.state.usuario
       }
     });
   }
 
-  registraUsuarioAPI() {}
+  registraUsuarioAPI() {
+    fetch('https://api.rebeneficios.ml/user/register?_format=json', { method: "POST", body: this.state.usuario})
+    .then()
+    console.log("registra api", this.state.usuario)
+  }
   registraUsuarioPagamento(e) {
-    console.log("aqui entra o evento", e.target.value)
-    if ( this.state.usuario.pass.value !== "") {
+    if ( this.state.usuario.pass.value !== "" ) {
       fetch(
         "https://app.galaxpay.com.br/webservice/createPaymentBillBoletoAndCustomer",
         {
@@ -372,6 +325,7 @@ class Register extends Component {
           this.setState({
             mensagem: res.message
           })
+          this.registraUsuarioAPI();
           let link = res.paymentBill[0].integrationId.replace(`.| -`, '');
           sessionStorage.setItem('user', JSON.stringify(res));
           this.props.history.push(`/checkout/${link}`)

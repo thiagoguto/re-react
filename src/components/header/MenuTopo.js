@@ -12,6 +12,7 @@ class MenuTopo extends Component {
   render() {
     return (
       <ul className="uk-navbar-nav uk-visible@m">
+        {console.log("psss")}
         {this.state.links.map(item => (
           <li key={item.id}>
             {item.class === "" ? (
