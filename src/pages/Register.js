@@ -6,6 +6,7 @@ class Register extends Component {
     super(props);
     this.state = {
       mensagem: '',
+      confirm: '',
       usuario: {
         field_nome: {
           //name
@@ -51,9 +52,6 @@ class Register extends Component {
           value: ""
         },
         pass: {
-          value: ""
-        },
-        confirm: {
           value: ""
         }
       }
@@ -265,16 +263,23 @@ class Register extends Component {
     });
   }
   confirmBind(event) {
+    let confirm = event.target.value;
     this.setState({
-      usuario: {
-        ...this.state.usuario
+      confirm: {
+        value: confirm
       }
     });
   }
 
   registraUsuarioAPI() {
     fetch('https://api.rebeneficios.ml/user/register?_format=json', { method: "POST", body: this.state.usuario})
-    .then()
+    .then(res => (
+      console.log("1 criou", res),
+      res.json()
+      )
+    )
+    .then(res => console.log("criou", res))
+    .catch(err => console.log("erro", err));
     console.log("registra api", this.state.usuario)
   }
   registraUsuarioPagamento(e) {
@@ -305,13 +310,13 @@ class Register extends Component {
               email: this.state.usuario.mail.value, 
               cellphone: this.state.usuario.field_telefone.value, 
               Address: {
-                zipCode: this.state.usuario.endereco.field_cep.value,
-                street: this.state.usuario.endereco.field_rua.value,
-                number: this.state.usuario.endereco.field_numero.value,
-                neighborhood: this.state.usuario.endereco.field_bairro.value,
-                city: this.state.usuario.endereco.field_cidade.value,
-                state: this.state.usuario.endereco.field_estado.value,
-                complement: this.state.usuario.endereco.field_complemento.value
+                zipCode: this.state.usuario.field_cep.value,
+                street: this.state.usuario.field_rua.value,
+                number: this.state.usuario.field_numero.value,
+                neighborhood: this.state.usuario.field_bairro.value,
+                city: this.state.usuario.field_cidade.value,
+                state: this.state.usuario.field_estado.value,
+                complement: this.state.usuario.field_complemento.value
               }
             }
           }
@@ -444,7 +449,7 @@ class Register extends Component {
                         <div className="uk-inline uk-width-1-1">
                           <span className="uk-form-icon" uk-icon="icon: lock" />
                           <input
-                            value={this.state.usuario.confirm.value}
+                            value={this.state.confirm.value}
                             onChange={this.confirmBind}
                             className="uk-input"
                             type="password"
@@ -467,7 +472,7 @@ class Register extends Component {
                         <span>Endereço</span>
                         <div className="uk-inline uk-width-1-1">
                           <input
-                            value={this.state.usuario.endereco.field_cep.value}
+                            value={this.state.usuario.field_cep.value}
                             onChange={this.cepBind}
                             className="uk-input"
                             type="text"
@@ -478,7 +483,7 @@ class Register extends Component {
                       <div className="uk-margin">
                         <div className="uk-inline uk-width-1-1">
                           <input
-                            value={this.state.usuario.endereco.field_rua.value}
+                            value={this.state.usuario.field_rua.value}
                             onChange={this.ruaBind}
                             className="uk-input"
                             type="text"
@@ -490,7 +495,7 @@ class Register extends Component {
                         <div className="uk-inline uk-width-1-1">
                           <input
                             value={
-                              this.state.usuario.endereco.field_numero.value
+                              this.state.usuario.field_numero.value
                             }
                             onChange={this.numeroBind}
                             className="uk-input"
@@ -503,7 +508,7 @@ class Register extends Component {
                         <div className="uk-inline uk-width-1-1">
                           <input
                             value={
-                              this.state.usuario.endereco.field_bairro.value
+                              this.state.usuario.field_bairro.value
                             }
                             onChange={this.bairroBind}
                             className="uk-input"
@@ -516,7 +521,7 @@ class Register extends Component {
                         <div className="uk-inline uk-width-1-1">
                           <input
                             value={
-                              this.state.usuario.endereco.field_cidade.value
+                              this.state.usuario.field_cidade.value
                             }
                             onChange={this.cidadeBind}
                             className="uk-input"
@@ -529,7 +534,7 @@ class Register extends Component {
                         <div className="uk-inline uk-width-1-1">
                           <input
                             value={
-                              this.state.usuario.endereco.field_estado.value
+                              this.state.usuario.field_estado.value
                             }
                             onChange={this.estadoBind}
                             className="uk-input"
@@ -542,7 +547,7 @@ class Register extends Component {
                         <div className="uk-inline uk-width-1-1">
                           <input
                             value={
-                              this.state.usuario.endereco.field_complemento
+                              this.state.usuario.field_complemento
                                 .value
                             }
                             onChange={this.complementoBind}
@@ -567,16 +572,16 @@ class Register extends Component {
                   <div className="uk-margin uk-flex uk-flex-between">
                     <button
                       disabled={
-                        !this.state.usuario.pass.value !== !this.state.usuario.confirm.value ||
+                        !this.state.usuario.pass.value !== !this.state.confirm.value ||
                         !this.state.usuario.field_nome.value ||
                         !this.state.usuario.field_cpf.value ||
                         !this.state.usuario.mail.value ||
                         !this.state.usuario.field_telefone.value ||
-                        !this.state.usuario.endereco.field_cep.value ||
-                        !this.state.usuario.endereco.field_rua.value ||
-                        !this.state.usuario.endereco.field_cidade.value ||
-                        !this.state.usuario.endereco.field_estado.value || 
-                        !this.state.usuario.endereco.field_numero.value 
+                        !this.state.usuario.field_cep.value ||
+                        !this.state.usuario.field_rua.value ||
+                        !this.state.usuario.field_cidade.value ||
+                        !this.state.usuario.field_estado.value || 
+                        !this.state.usuario.field_numero.value 
                       }
                       type="button"
                       className="uk-button uk-button-primary uk-width-1-1"

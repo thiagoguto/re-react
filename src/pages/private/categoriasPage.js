@@ -58,7 +58,7 @@ class Categorias extends Component {
       });
   }
   render() {
-    const vUser = JSON.parse(sessionStorage.getItem('userLocal'));
+    var vUser = JSON.parse(sessionStorage.getItem('userLocal'));
     return (
       <>
         <Header />
@@ -76,7 +76,7 @@ class Categorias extends Component {
               <h2 className="uk-light uk-text-center">
                 Bem Vindo {' '}
                 {console.log("vUser", vUser)}
-                { vUser.field_nome[0]  ? vUser.field_nome[0].value : '' }
+                { vUser !== null  ? vUser.field_nome[0].value : '' }
                 <span className="icon icon-colab-new-tab" />
               </h2>
             </div>
