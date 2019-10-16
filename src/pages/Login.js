@@ -18,7 +18,7 @@ class Login extends Component {
   
   criaUsuarioLocal(id){
     console.log("foi ativado", API.APIURL+'/user/'+id+'?_format=json')
-    fetch('https://api.rebeneficios.ml/user/'+id+'?_format=json')
+    return fetch('https://api.rebeneficios.ml/user/'+id+'?_format=json')
     .then(data => data.json())
       .then(res=>{
         sessionStorage.setItem('userLocal', JSON.stringify(res));
@@ -54,16 +54,20 @@ class Login extends Component {
           }
         })
         .then(res => {
-          sessionStorage.setItem("userID", parseInt(res.current_user.uid));
+          let id = parseInt(res.current_user.uid);
+          sessionStorage.setItem("userID", id);
           sessionStorage.setItem("token", res.csrf_token);
-          this.criaUsuarioLocal(parseInt(res.current_user.uid));
+          
           if (sessionStorage.getItem("token") === true) {
             this.authenticated = true;
           } else {
             this.authenticated = false;
           }
-          this.props.history.push("/app");
+          this.criaUsuarioLocal(102);
           console.log("res", res)
+        })
+        .then(() => {
+          this.props.history.push("/app");
         })
         .catch(({ message, response }) => {
           this.setState({ msgError: message, msgCor: "warning" });

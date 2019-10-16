@@ -56,11 +56,10 @@ class MenuTopo extends Component {
                   </Link>
                     </div>
                     <div className="uk-margin-bottom">
-                      {console.log("ss",JSON.parse(sessionStorage.getItem('userLocal')).uuid[0].value)}
-                  <a href="#modal-example" uk-toggle="target: #modal-example">
-                    <span uk-icon="icon: credit-card" className="uk-margin-small-right" />
-                    Cartão Virtual
-                  </a>
+                      <a href="#modal-example" uk-toggle="target: #modal-example">
+                        <span uk-icon="icon: credit-card" className="uk-margin-small-right" />
+                        Cartão Virtual
+                      </a>
                     </div>
                     <div>
                     <CartaoVirtual dados={JSON.parse(sessionStorage.getItem('userLocal'))} />

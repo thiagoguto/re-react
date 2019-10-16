@@ -8,10 +8,19 @@ class Categoria extends Component {
   constructor(props){
     super(props);
     this.state = {
-      allya: ''
+      allya: '',
+      pesquisa: '',
+      cidade: 'location=-19.8157,-43.9542'
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
-  
+  handleChange (evt){
+    this.setState({pesquisa: evt.target.value});
+  }
+  handleSelect (evt){
+    this.setState({cidade: evt.target.value});
+  }
   carregaCategoria(rota){
     if(rota){
     const header = {
@@ -21,7 +30,7 @@ class Categoria extends Component {
     }
     if(rota === "/app/categoria/farmacias"){
       const categoria ='59fd207f2d84ff11f8edcaf7'
-      fetch(API.allya+API.lo+API.co+API.li+API.ca+categoria, header)
+      fetch(API.allya+this.state.cidade+API.co+API.li+API.ca+categoria, header)
       .then(res=> res.json())
       .then(res=> {
         this.setState({
@@ -31,7 +40,7 @@ class Categoria extends Component {
     }
     if(rota === "/app/categoria/restaurantes"){
       const categoria = "59fd207f2d84ff11f8edcaee"
-      fetch(API.allya+API.lo+API.co+API.li+API.ca+categoria, header)
+      fetch(API.allya+this.state.cidade+API.co+API.li+API.ca+categoria, header)
       .then(res=> res.json())
       .then(res=> {
         this.setState({
@@ -41,7 +50,7 @@ class Categoria extends Component {
     }
     if(rota === "/app/categoria/cursos"){
       const categoria = "59fd207f2d84ff11f8edcaf1"
-      fetch(API.allya+API.lo+API.co+API.li+API.ca+categoria, header)
+      fetch(API.allya+this.state.cidade+API.co+API.li+API.ca+categoria, header)
       .then(res=> res.json())
       .then(res=> {
         this.setState({
@@ -51,7 +60,7 @@ class Categoria extends Component {
     }
     if(rota === "/app/categoria/diversao"){
       const categoria = "59fd207f2d84ff11f8edcaef"
-      fetch(API.allya+API.lo+API.co+API.li+API.ca+categoria, header)
+      fetch(API.allya+this.state.cidade+API.co+API.li+API.ca+categoria, header)
       .then(res=> res.json())
       .then(res=> {
         this.setState({
@@ -61,7 +70,7 @@ class Categoria extends Component {
     }
     if(rota === "/app/categoria/online"){
       const categoria = '59fd207f2d84ff11f8edcaf9'
-      fetch(API.allya+API.lo+API.co+API.li+API.ca+categoria, header)
+      fetch(API.allya+this.state.cidade+API.co+API.li+API.ca+categoria, header)
       .then(res=> res.json())
       .then(res=> {
         this.setState({
@@ -113,9 +122,28 @@ class Categoria extends Component {
         </div>
         <div className="uk-container uk-flex uk-flex-center">
           <div className="uk-card uk-card-default uk-card-body uk-width-1-1@xs  uk-width-1-1 uk-margin-large-bottom"
-            style={{ marginTop: -70 }} >
+            style={{ marginTop: -70 }} uk-grid="">
+            <div className="uk-width-1-2">
+            <form className="uk-search uk-search-default uk-width-1-1">
+
+            <select className="uk-select uk-width-2-3" onChange={this.handleSelect}>
+                <option value="location=-19.8157,-43.9542">Belo Horizonte</option>
+                <option value="location=-19.7672,-43.8524">Santa Luzia</option>
+                <option value="location=-19.9386,-44.0529">Contagem</option>
+                <option value="location=-19.6934,-43.9137">Vespasiano</option>
+            </select>
+            { this.state.cidade }
+            <button class="uk-button uk-button-default uk-width-1-3" >Filtrar</button>
+            </form>
+        </div>
+            <div className="uk-width-1-2">
+              <form className="uk-search uk-search-default uk-width-1-1">
+                <span className="uk-search-icon-flip" uk-search-icon=""></span>
+                <input className="uk-search-input" value={this.state.pesquisa} onChange={this.handleChange}  type="search" placeholder="Pesquisar..." />
+              </form>
+            </div>
             <div className="uk-child-width-1-5" uk-grid="">
-              { this.state.allya === '' ? <Loading />  : this.state.allya.map( res => <RedeItemAllya key={res._id} rota={imagem}  data={res} /> ) }
+              { this.state.allya === '' ? <Loading />  : this.state.allya.filter( res => { return res.name.toLowerCase().indexOf(this.state.pesquisa) >= 0 } ).map( res => <RedeItemAllya key={res._id} rota={imagem}  data={res} /> ) }
             </div>
           </div>
         </div>

@@ -91,13 +91,13 @@ class Categorias extends Component {
                 {this.state.categorias.map(res=>
                 <div key={res.id}>
                   <Link to={res.url}>
-                  <div className="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" style={{backgroundImage: `url(${require('../../assets/img/'+res.img)})`}}>
-                  <div className="uk-overlay uk-overlay-primary uk-position-cover">
-                  <div className="uk-position-center">
-                      <h3 className="uk-h2">{res.titulo}</h3>
+                    <div className="uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" style={{backgroundImage: `url(${require('../../assets/img/'+res.img)})`}}>
+                      <div className="uk-overlay uk-overlay-primary uk-position-cover">
+                        <div className="uk-position-center">
+                          <h3 className="uk-h2">{res.titulo}</h3>
+                        </div>
                       </div>
-                      </div>
-                  </div> 
+                    </div> 
                   </Link>
                 </div>
                   )}
